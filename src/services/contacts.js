@@ -21,9 +21,11 @@ export const getAllContacts = async () => {
 
 export const getContactById = async (contactId) => {
   try {
-    return await Contact.findById(contactId).lean();
+    console.log(`🔍 ID ile arama yapılıyor: ${contactId}`);
+    const contact = await Contact.findById(contactId).lean();
+    return contact;
   } catch (error) {
-    console.error('getContactById hatası:', error);
+    console.error('getContactById hatası:', error.message);
     throw error;
   }
 };

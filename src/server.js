@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import pinoHttp from 'pino-http';
-import { getAllContacts } from './services/contacts.js';
+import { getAllContacts, getContactById } from './services/contacts.js';
 
 export function setupServer() {
   const app = express();
@@ -30,7 +30,8 @@ export function setupServer() {
       });
     }
   });
-  
+
+  // Tek contact getirme
   app.get('/contacts/:contactId', async (req, res) => {
     try {
       const { contactId } = req.params;
@@ -48,7 +49,7 @@ export function setupServer() {
         data: contact,
       });
     } catch (error) {
-      console.error('ID ile contact getirme hatası:', error);
+      console.error('❌ /contacts/:contactId rotasında hata:', error);
       res.status(500).json({ message: 'Internal server error' });
     }
   });
